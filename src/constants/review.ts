@@ -8,3 +8,5 @@ export const REVIEW_RATINGS = [
   {value: 2, title: 'badly'},
   {value: 1, title: 'terribly'},
 ] as const;
+
+export const MAX_REVIEWS_COUNT = 10;

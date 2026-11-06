@@ -1,3 +1,5 @@
+import ReviewsList from '@components/reviews-list/reviews-list';
+import Map from '@components/map/map';
 import Header from '@components/header/header';
 import {useParams} from 'react-router-dom';
 import type {DetailedOffer, Offer, Review} from '@/types/offer';
@@ -95,36 +97,12 @@ function OfferPage({offers, nearbyOffers, comments, favoritesCount}: OfferPagePr
                 <div className="offer__description"><p className="offer__text">{offer.description}</p></div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2>
-                <ul className="reviews__list">
-                  {offerComments.map((comment) => (
-                    <li className="reviews__item" key={comment.id}>
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src={comment.user.avatarUrl} width="54" height="54" alt={comment.user.name} />
-                        </div>
-                        <span className="reviews__user-name">{comment.user.name}</span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{width: `${Math.round(comment.rating) * 20}%`}}></span>
-                            <span className="visually-hidden">Rating</span>
-                          </div>
-                        </div>
-                        <p className="reviews__text">{comment.comment}</p>
-                        <time className="reviews__time" dateTime={comment.date}>
-                          {new Date(comment.date).toLocaleDateString('en-US', {month: 'long', year: 'numeric'})}
-                        </time>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                <ReviewsList reviews={offerComments} />
                 <CommentForm key={offer.id} />
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map city={offer.city} offers={displayedNearbyOffers} currentOffer={offer} variant="offer" />
         </section>
         <div className="container">
           <section className="near-places places">
